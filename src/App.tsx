@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useCallback} from 'react';
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 
-function App() {
+export const App = () => {
+
+  const handlePressEnter = useCallback((e) => {
+    if (e.key === "Enter") {
+      console.log('dkdk');
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Box sx={{flexGrow: 1}}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+              TASKER
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <div style={{marginBottom: 20}}/>
+      <Grid container spacing={3}>
+        <Grid item xs>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField fullWidth id="standard-basic" label="タスクを入力" variant="standard" onKeyPress={(e) => handlePressEnter(e)}/>
+        </Grid>
+        <Grid item xs>
+        </Grid>
+      </Grid>
+    </>
+  )
 }
-
-export default App;
