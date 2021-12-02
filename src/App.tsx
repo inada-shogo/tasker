@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import "./css/style.css";
+import { info } from 'console';
 
 type TaskList = {
     info: string,
@@ -17,13 +18,11 @@ export const App = () => {
     const [inputTextState, setInputTextState] = useState<string>("");
 
     const [taskList, setTaskList] = useState<string[]>([]);
-
     const [taskCheckedList, setTaskCheckedList] = useState<boolean[]>([]);
 
     const handlePressEnter = useCallback((e) => {
         if (e.key === "Enter" && inputTextState !== "") {
             setTaskList([...taskList, inputTextState]);
-            setTaskCheckedList([...taskCheckedList, false]);
             setInputTextState("");
         }
     }, [inputTextState, taskList]);
@@ -31,6 +30,24 @@ export const App = () => {
     const handleChangeInputElement = useCallback((e) => {
         setInputTextState(e.target.value);
     }, []);
+
+    const handleChangeCheckedFlg = useCallback((clickNum: number) => {
+        setTaskCheckedList(
+            taskCheckedList.map((info, i) => {
+                return i === clickNum ? !taskCheckedList[i] : info;
+            })
+        )
+    }, [taskCheckedList]);
+
+    const handleDeleteInputFunction = useCallback((index: number) => {
+        console.log(index);
+    }, []);
+
+    const handleInputClickEvent = useCallback((event: React.MouseEvent<HTMLInputElement>, activeEventNum: number) => {
+        if (event.ctrlKey) {
+            handleDeleteInputFunction(activeEventNum);
+        }
+    }, [handleDeleteInputFunction]);
 
     return (
         <>
@@ -68,6 +85,10 @@ export const App = () => {
                                             id={`four${i}`}
                                             type='checkbox'
                                             checked={taskCheckedList[i]}
+                                            onChange={() => {
+                                                handleChangeCheckedFlg(i)
+                                            }}
+                                            onClick={(e) => handleInputClickEvent(e, i)}
                                         />
                                         <label htmlFor={`four${i}`}>
                                             <span></span>
