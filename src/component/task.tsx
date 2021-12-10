@@ -44,8 +44,15 @@ export const Task = () => {
 
   /** ctrl + enter */
   const handleInputClickEvent = useCallback((event: React.MouseEvent<HTMLInputElement>, activeEventNum: number) => {
-    if (event.ctrlKey) { handleDeleteInputFunction(activeEventNum); }
-  }, [handleDeleteInputFunction]);
+    if (event.ctrlKey) {
+      handleDeleteInputFunction(activeEventNum);
+      setTimeout(() => {
+        for (let i = 1; i <= taskList.length; i++) {
+          handleChangeCheckedFlg(activeEventNum + i);
+        }
+      }, 10);
+    }
+  }, [handleDeleteInputFunction, handleChangeCheckedFlg]);
 
   /** 一括 task 削除 */
   const setKeyEvent = useCallback(() => {
@@ -65,6 +72,7 @@ export const Task = () => {
         <Grid item xs={8}>
           <div>
           <TextField
+            key={"textField"}
             autoFocus 
             fullWidth
             id="standard-basic"
@@ -86,13 +94,14 @@ export const Task = () => {
                   <>
                     <input
                       id={`four${i}`}
+                      key={`input${i}`}
                       type='checkbox'
                       checked={info.checked}
                       onChange={() => handleChangeCheckedFlg(i)}
                       onClick={(e) => handleInputClickEvent(e, i)}
                     />
                     <label htmlFor={`four${i}`}>
-                      <span/>
+                      <span />
                       {info.text}
                       <ins><i>{info.text}</i></ins>
                     </label>
