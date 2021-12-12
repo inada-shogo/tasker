@@ -66,10 +66,10 @@ export const Task = () => {
 
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={10}>
           <div>
           <TextField
             key={"textField"}
@@ -103,7 +103,6 @@ export const Task = () => {
                     <label htmlFor={`four${i}`}>
                       <span />
                       {info.text}
-                      <ins><i>{info.text}</i></ins>
                     </label>
                   </>
                 )
